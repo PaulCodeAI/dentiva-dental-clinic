@@ -1,0 +1,30 @@
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.DentivaFAQ=factory();})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+const contact='Call +91-7990837238 or email support@dentiva.com.';
+const services=[['General Dentistry','Exams, cleanings, fillings, and preventive care.'],['Cosmetic Dentistry','Whitening, veneers, and bonding for a radiant smile.'],['Restorative Care','Crowns, bridges, implants, and dentures.'],['Pediatric Dentistry','Gentle dental care for children and teens.'],['Orthodontics','Braces and clear aligners to straighten teeth.'],['Emergency Care','Same-day appointments for urgent dental needs.'],['Root Canal Treatment','Therapy to save infected teeth.'],['Teeth Whitening','Professional whitening for a brighter smile.'],['Dental Implants','Permanent tooth replacement with titanium implants.']];
+const team='Dr. Rajesh Sharma: Lead Dentist & Founder, 20+ years experience, MDS.\nDr. Priya Patel: Orthodontist, braces and clear aligners.\nDr. Ananya Reddy: Pediatric Dentist, MDS Pedodontics.\nDr. Vikram Singh: Oral Surgeon, dental implants and extractions.';
+const hours="We're open Monday to Saturday, 9 AM to 8 PM, and Sunday, 10 AM to 2 PM.";
+const address="You can find us on the 2nd Floor of Pearl Plaza, MG Road, Bengaluru, Karnataka 560001. It's about a 5-minute walk from MG Road Metro Station.";
+const facts='Website information only, not live availability.\n'+services.map(s=>s.join(': ')).join('\n')+'\n'+team+'\n'+hours+'\n'+address+'\n'+contact+'\nNo treatment prices are listed. The website advertises 0% interest installment plans for major treatments, major dental insurance support and cashless facilities; confirm eligibility with the clinic. Free on-site parking at Pearl Plaza is listed. Founded in 2010 by Dr. Rajesh Sharma. Chat does not book appointments or diagnose symptoms.';
+const quick=['Services','Hours','Doctors','Location','Prices & EMI','Book appointment','Insurance','Contact'];
+function reply(text){const q=String(text||'').toLowerCase().normalize('NFKC');const has=r=>r.test(q);
+if(has(/\b(breath\w*|swallow\w*|heavy bleeding|serious injury|knocked\w*|trauma)\b/))return 'This chat cannot assess symptoms. Trouble breathing or swallowing, heavy bleeding or serious injury needs immediate local emergency care. For urgent dental concerns, '+contact;
+if(has(/\b(pain\w*|bleed\w*|swollen|swelling|fever|hurt\w*|emergency|urgent|broken tooth)\b/)&&!has(/\b(service|offer)\b/))return "If you need urgent dental care, please contact the clinic directly. "+contact+" The clinic can confirm whether a same-day appointment is available. I can help with clinic information, but I can't assess symptoms or book a slot.";
+if(has(/\b(price\w*|cost\w*|fee\w*|charge\w*|emi|payment\w*|installment\w*|quote)\b/))return "We haven't listed treatment prices here, so I don't want to give you a wrong estimate. We do list 0% interest installment plans for major treatments. "+contact+" The clinic can walk you through the cost and check whether installments apply to your treatment.";
+if(has(/\b(book\w*|appointment\w*|schedule|slot\w*|available|availability|reserve)\b/))return "To arrange a visit, please "+contact.toLowerCase()+" You can also use the Contact page. I can guide you, but I can't check live slots or confirm a booking here.\n"+hours;
+if(has(/\b(hour\w*|open\w*|timing\w*|close\w*|sunday|saturday|weekend|when)\b/))return hours+" Planning a visit on a holiday? Give us a call to confirm the hours first.";
+if(has(/\b(where|location|address|direction\w*|metro|reach)\b/))return address;
+if(has(/\b(doctor\w*|dentist\w*|team|rajesh|priya|ananya|vikram)\b/))return "Dr. Rajesh Sharma leads our team. Dr. Priya Patel handles braces and aligners, Dr. Ananya Reddy looks after children's dental care, and Dr. Vikram Singh focuses on implants and extractions.";
+if(has(/\b(insurance|cashless|cover\w*)\b/))return "We list support for most major dental insurance plans, including a cashless facility. "+contact+" Share your insurer's name with the clinic so they can check your coverage and eligibility.";
+if(has(/\b(park\w*|car)\b/))return "Yes, free on-site parking for patients is listed at Pearl Plaza.";
+if(has(/\b(contact|phone|number|call|email)\b/))return contact;
+const specific=[[/\b(kid\w*|child\w*|pediatric|baby)\b/,3],[/\b(braces|aligner\w*|orthodont\w*)\b/,4],[/\b(root canal)\b/,6],[/\b(whiten\w*|bleach\w*)\b/,7],[/\b(implant\w*|missing teeth|missing tooth)\b/,8],[/\b(clean\w*|check.?up|filling\w*)\b/,0],[/\b(cosmetic|veneers|bonding)\b/,1],[/\b(crown\w*|bridge\w*|denture\w*|restorative)\b/,2]];
+const matches=specific.filter(([r])=>has(r)).map(([,i])=>'For '+services[i][0].toLowerCase()+', we offer '+services[i][1][0].toLowerCase()+services[i][1].slice(1));if(matches.length)return matches.join('\n');
+if(has(/\b(service\w*|treatment\w*|procedure\w*|offer\w*)\b/))return "We can help with check-ups and cleaning, cosmetic and restorative care, children's dentistry, braces and aligners, urgent dental care, root canals, whitening and implants. Ask me about any of these and I'll tell you a little more.";
+if(has(/\b(about|founded|history|since)\b/))return "Dentiva began in Bengaluru in 2010, founded by Dr. Rajesh Sharma. The focus has always been on comfortable, patient-first dental care.";
+if(has(/\b(thank\w*)\b/))return "You're welcome! What else would you like to know?";
+if(has(/\b(hi|hello|hey|namaste)\b/))return "Hi! I can help you find clinic information. Want to know about our services, doctors, hours or how to get in touch?";
+return "I don't have an answer for that in our website FAQ. You can ask about services, doctors, hours, location or insurance. For anything more specific, "+contact;
+}
+return {reply,quick,facts};
+});
