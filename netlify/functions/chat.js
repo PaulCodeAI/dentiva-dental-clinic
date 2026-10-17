@@ -1,5 +1,5 @@
 'use strict';
-const FAQ=require('../../faq.js');
+const FAQ=require('../../assets/js/faq.js');
 const headers={'Content-Type':'application/json','Cache-Control':'no-store'};
 const result=(statusCode,data)=>({statusCode,headers,body:JSON.stringify(data)});
 exports.handler=async(event)=>{

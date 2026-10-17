@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dentiva-clinic.netlify.app/sitemap.xml
